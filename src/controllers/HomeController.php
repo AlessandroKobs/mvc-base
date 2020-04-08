@@ -5,8 +5,10 @@ use \core\Controller;
 
 class HomeController extends Controller {
 
+
     public function index() {
-        $this->render('home', ['nome' => 'Bonieky']);
+       $ar['result'] = ['Hello' => 'World'];
+       $this->json($ar);
     }
 
     public function sobre() {

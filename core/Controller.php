@@ -2,6 +2,7 @@
 namespace core;
 
 use \src\Config;
+use KHerGe\JSON\JSON;
 
 class Controller {
 
@@ -36,6 +37,20 @@ class Controller {
 
     public function render($viewName, $viewData = []) {
         $this->_render('pages', $viewName, $viewData);
+    }
+
+    /**
+     * 
+     * @param Array $ar 
+     * Traduz um array de retorno em objeto JSON
+     * 
+     */
+    public function json($ar) {
+        header("Content-Type: application/json");
+        $json = new JSON();
+        echo $json->encode($ar);
+        return true;
+
     }
 
 }
