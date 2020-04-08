@@ -2,10 +2,17 @@
 namespace core;
 
 use \src\Config;
+use \src\Middlewares;
 
 class RouterBase {
+    
+    protected $req;
+    protected $res; 
 
-    public function run($routes) {
+    public function callController($controller, $action, $args) {
+
+    }
+    public function run($routes, $middlewares = null) {
         $method = Request::getMethod();
         $url = Request::getUrl();
 
@@ -46,6 +53,17 @@ class RouterBase {
                     break;
                 }
             }
+        }
+        /**
+         * Faz a execução do Middleware
+         */
+        if ($this->middleware) {
+            $middleware = new \src\Middlewares\Auth($controller, $action, $args);
+            $middleware->run();
+
+            $controller = $middleware->getController();
+            $action = $middleware->getAction();
+            $args = $middleware->getArgs();
         }
 
         $controller = "\src\controllers\\$controller";
