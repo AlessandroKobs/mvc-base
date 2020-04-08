@@ -8,8 +8,19 @@ use \ClanCats\Hydrahon\Query\Sql\FetchableInterface;
 class Model {
 
     protected static $_h;
+    /**
+     * Cria uma propriedade para definir um nome de tabela personalizado
+     */
+    protected $tableName = null;
     
-    public function __construct() {
+    /**
+     * @param String $tableName
+     * Permite a definição de um nome de tabela PERSONALIZADO.
+     */
+    public function __construct($tableName = null) {
+        if ($tableName) { 
+            $this->tableName = $tableName;
+        }
         self::_checkH();
     }
 
@@ -31,6 +42,10 @@ class Model {
     }
 
     public static function getTableName() {
+        // Permite a definição de um tablename personalizado.
+        if ($this->tableName) { 
+            return $this->tableName; 
+        }
         $className = explode('\\', get_called_class());
         $className = end($className);
         return strtolower($className).'s';
