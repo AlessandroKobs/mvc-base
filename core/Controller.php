@@ -45,8 +45,8 @@ class Controller {
      * Traduz um array de retorno em objeto JSON
      * 
      */
-    public function json($ar) {
-        header("Content-Type: application/json");
+    public function json($ar, $responseCode = 200) {
+        header("Content-Type: application/json", true, $responseCode);
         $json = new JSON();
         echo $json->encode($ar);
         return true;

@@ -8,7 +8,7 @@ class HomeController extends Controller {
 
     public function index() {
        $ar['result'] = ['Hello' => 'World'];
-       $this->json($ar);
+       $this->json($ar, 401);
     }
 
     public function sobre() {
